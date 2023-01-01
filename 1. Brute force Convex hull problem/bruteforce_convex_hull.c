@@ -42,32 +42,14 @@ int compare(int x, int y){
 	return 0;
 }
 
-/*
-#points
-points(2247,7459)
-points(616,2904)
-points(5976,6539)
-points(1246,8191)
-*/
+
 void print_points( t_point *points, int num_point);
 
-/*
-#line segments
-segments(7107,2909,7107,2909)
-segments(43,8,5,38)
-segments(43,8,329,2)
-segments(5047,8014,5047,8014)
-*/
 void print_line_segments( t_line *lines, int num_line);
 
 
 
-// [input] points : set of points
-// [input] num_point : number of points
-// [output] num_line : number of line segments that forms the convex hull
-// return value : set of line segments that forms the convex hull
 t_line *convex_hull( t_point *points, int num_point, int *num_line);
-
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -112,7 +94,6 @@ int main( int argc, char **argv)
  	fprintf( stderr, "%d points created!\n", num_point);
 
 	
-
 	print_header( "convex.png"); //헤더부분 출력
 	
 	print_points( points, num_point);
@@ -136,7 +117,6 @@ int main( int argc, char **argv)
 }
 
 
-
 void print_points( t_point *points, int num_point){
 
 	int i = 0;
@@ -151,7 +131,6 @@ void print_points( t_point *points, int num_point){
 
 }
 
-
 void print_line_segments( t_line *lines, int num_line){
 
 	int i = 0;
@@ -165,7 +144,6 @@ void print_line_segments( t_line *lines, int num_line){
 
 
 }
-
 
 
 t_line *convex_hull( t_point *points, int num_point, int *num_line){
@@ -186,8 +164,6 @@ t_line *convex_hull( t_point *points, int num_point, int *num_line){
 			a = points[j].y-points[i].y;
 			b = points[i].x-points[j].x;
 			c = points[i].x*points[j].y-points[j].x*points[i].y;
-			// a = (points[i].y - points[j].y)/(points[i].x - points[j].x);
-			// p = points[i].y - a*(points[i].x);
 
 			add=1;
 			for(k=0; k <num_point-1; k++){
@@ -195,9 +171,6 @@ t_line *convex_hull( t_point *points, int num_point, int *num_line){
 				if(k==i || k==j) continue;
 				if(k+1==i || k+1==j) continue;
 
-
-
-				
 
 				if((a*points[k].x + b*points[k].y - c ) * (a*points[k+1].x + b*points[k+1].y - c ) < 0 )
 					add=0;
@@ -214,125 +187,9 @@ t_line *convex_hull( t_point *points, int num_point, int *num_line){
 				lines[l].to.y = points[j].y;
 	 			l++;
 	 		}
-
-
-
 			
 		}
-
-
-
-					
-
-		
-	}
-
-
-
 	
-
+	}
 	 return lines;
 }
-
-
-//오답노트
-// k로 if문 돌릴떄 k, k+1이 ij랑 같은경우까지 모두 제외해야 함 ㅠㅠ 안하면 수가 엄청 적을때 이상해짐 ㅠㅠ
-// 직선 기울기 구하는 과정에서 나누기 쓰면 자꾸 플로팅 에러 발생해서 곱하는 쪽으로 함
-
-
-
-
-
-
-// t_line *convex_hull( t_point *points, int num_point, int *num_line){
-
-// 	t_line *lines;
-
-// 	int i, j, k, x, y;
-// 	float a, b ;
-// 	int first, check, p=0;
-// 	int l =0;
-
-// 	for(i=0; i<num_point; i++){
-// 		for(j=i+1; j<num_point; j++){
-
-// 			a = (points[i].x - points[j].x)/(points[i].y - points[j].y);
-// 			b = points[i].y + a*(-1)*(points[i].x);
-
-			
-
-			
-
-
-// 			for(k=0; k<num_point; k++){ //비교하는 점들
-
-// 				if(k==i || k==j) continue;
-
-// 				x = points[k].x;
-// 				y = points[k].y;
-
-
-
-
-// 				while(first==1){
-// 					first = 0 ;
-// 					if(a*x+b >= y)
-// 						check=1;
-// 					else
-// 						check=0;
-// 						}
-					
-
-				
-// 				if(check){
-// 					if(a*x+b >= y)
-// 						continue;
-// 					else{
-
-// 						p=1;
-// 						break;
-// 					}
-// 				}
-							
-// 				else{
-// 					if(a*x+b < y)
-// 						continue;
-// 					else{
-
-// 						p=1;
-// 						break;
-// 					}
-// 				}
-
-
-// 				if(p==1)
-// 					break;
-
-// 				else{
-// 					p==0;
-// 					num_line++;
-// 					lines[l].from.x = points[i].x;
-// 					lines[l].from.y = points[i].y;	
-// 					lines[l].to.x = points[j].x;
-// 					lines[l].to.y = points[j].y;
-// 					l++;
-
-// 				}
-				
-// 				first = 1;	
-// 			}
-
-
-
-
-// 		}
-// 	}
-	
-
-
-
-
-
-// return lines;
-
-// }
